@@ -1,9 +1,9 @@
-from ENTITY.PATIENT import patient
-from ENTITY.DOCTOR import doctor
-from ENTITY.APPOINTMENT import appointment
-from DAO.HOSPITAL_SERVICE import hospitalService
-from UTIL.DbConnection import DBConnection
+from DAO.PATIENT import patient
+from DAO.DOCTOR import doctor
+from DAO.APPOINTMENT import appointment
+from DAO.HOSPITAL_SERVICE_IMPL import hospitalServiceImpl
 from UTIL.propertyUtil import PropertyUtil
+from UTIL.DbConnection import DBConnection
 from mysql.connector import Error
 from EXCEPTION.PATIENT_ID_NOT_FOUND import invalidPatientIdException
 
@@ -12,14 +12,21 @@ try:
     connObj = DBConnection()
     con = connObj.getConnection()
 
-    patientObj = patient()
-    patientObj.select_table()
+    hospitalServiceObj = hospitalServiceImpl()
+    appointmentId = int(input("Enter id to get appointments: "))
+    hospitalServiceObj.getAppointmentById(appointmentId)
 
-    doctorObj = doctor()
-    doctorObj.select_table()
+    patientId = int(input("Enter patient id to get appointment: "))
+    hospitalServiceObj.getAppointmentsForPatient(patientId)
 
-    appointmentObj = appointment()
-    appointmentObj.select_table()
+    # patientObj = patient()
+    # patientObj.select_table()
+    #
+    # doctorObj = doctor()
+    # doctorObj.select_table()
+    #
+    # appointmentObj = appointment()
+    # appointmentObj.select_table()
 
 except invalidPatientIdException as e:
     print(f"Error: {e}")

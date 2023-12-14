@@ -1,11 +1,12 @@
 from UTIL.DbConnection import DBConnection
-from ENTITY.PATIENT import patient
-from ENTITY.DOCTOR import doctor
-from ENTITY.APPOINTMENT import appointment
+# from DAO.PATIENT import patient
+# from DAO.DOCTOR import doctor
+from DAO.APPOINTMENT import appointment
+from ENTITY.IHOSPITALSERVICE import IHospitalService
 
 
-class hospitalService(appointment, doctor, patient, DBConnection):
-    def get_appointment_by_id(self, appointment_id):
+class hospitalServiceImpl(IHospitalService, appointment, DBConnection):
+    def getAppointmentById(self, appointment_id):
         DBConnection.getConnection()
         self.stmt = DBConnection.connection.cursor()
         DBConnection.connection.cursor()
@@ -15,7 +16,7 @@ class hospitalService(appointment, doctor, patient, DBConnection):
         for i in data:
             print(i)
 
-    def get_appointments_for_patients(self, patient_id):
+    def getAppointmentsForPatient(self, patient_id):
         DBConnection.getConnection()
         self.stmt = DBConnection.connection.cursor()
         DBConnection.connection.cursor()
@@ -25,7 +26,7 @@ class hospitalService(appointment, doctor, patient, DBConnection):
         for i in data:
             print(i)
 
-    def get_appointments_for_doctors(self, doctor_id):
+    def getAppointmentsForDoctor(self, doctor_id):
         DBConnection.getConnection()
         self.stmt = DBConnection.connection.cursor()
         DBConnection.connection.cursor()
@@ -35,17 +36,21 @@ class hospitalService(appointment, doctor, patient, DBConnection):
         for i in data:
             print(i)
 
-    def schedule_appointment(self):
+    # We are making an appointment. So I have called the insert_into method of appointment class
+    def scheduleAppointment(self):
         DBConnection.getConnection()
         self.stmt = DBConnection.connection.cursor()
         self.insert_into()
 
-    def update_appointment(self):
+    # We are updating an appointment. So I have called the update_table method of appointment class.
+    #  In that method it takes appointment id as input and updates the requires fields.
+    def updateAppointment(self):
         DBConnection.getConnection()
         self.stmt = DBConnection.connection.cursor()
         self.update_table()
 
-    def cancel_appointment(self):
+    # Cancelling the appointment means deleting. So I have called delete method of appointment class.
+    def cancelAppointment(self):
         DBConnection.getConnection()
         self.stmt = DBConnection.connection.cursor()
         self.delete_table()

@@ -43,20 +43,27 @@ class patient(DBConnection):
         print("Inserted Successfully")
 
     def update_table(self):
-        self.patient_id = int(input("Enter the patient id: "))
-        self.first_name = input("Enter the first name: ")
-        self.last_name = input("Enter the last name: ")
-        self.dob = input("Enter the date of birth: ")
-        self.gender = input("Enter the gender: ")
-        self.contact_num = input("Enter the contact number: ")
+        try:
+            self.patient_id = int(input("Enter the patient id: "))
+            self.first_name = input("Enter the first name: ")
+            self.last_name = input("Enter the last name: ")
+            self.dob = input("Enter the date of birth: ")
+            self.gender = input("Enter the gender: ")
+            self.contact_num = input("Enter the contact number: ")
+            if not self.patient_exists(self.patient_id):
+                raise invalidPatientIdException("Patient number not found")
 
-        update_query = f'update patient set first_name=%s, last_name=%s, dob=%s, gender=%s, contact_num=%s where patient_id=%s'
-        data = [(self.first_name, self.last_name, self.dob, self.gender, self.contact_num, self.patient_id)]
-        DBConnection.getConnection()
-        self.stmt = DBConnection.connection.cursor()
-        self.stmt.executemany(update_query, data)
-        DBConnection.connection.commit()
-        print("Updated Successfully")
+            update_query = f'update patient set first_name=%s, last_name=%s, dob=%s, gender=%s, contact_num=%s where patient_id=%s'
+            data = [(self.first_name, self.last_name, self.dob, self.gender, self.contact_num, self.patient_id)]
+            DBConnection.getConnection()
+            self.stmt = DBConnection.connection.cursor()
+            self.stmt.executemany(update_query, data)
+            DBConnection.connection.commit()
+            print("Updated Successfully")
+        except invalidPatientIdException as e:
+            print(e)
+        except Exception as e:
+            print(f"Error: {e}")
 
     def delete_table(self):
         try:
