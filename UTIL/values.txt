@@ -1,0 +1,4 @@
+hostname=localhost
+dbname=hospital_management
+username=root
+password=Chaitu@0207
