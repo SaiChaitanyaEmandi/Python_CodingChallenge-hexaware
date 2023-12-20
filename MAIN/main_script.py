@@ -87,19 +87,21 @@ try:
         elif ch == 4:
             while True:
                 print(
-                    "1.create hospital service impl\t2.insert hospital service impl\t3.update hospital service impl\n4.delete hospital service impl\t5.select hospital service impl\n6.Exit")
+                    "1.getAppointmentById\t2.getAppointmentsForPatient\t3.getAppointmentsForDoctor\n4.scheduleAppointment\t5.updateAppointment\n6.cancelAppointment\n7.exit")
                 choice = int(input("enter your choice:"))
                 if choice == 1:
-                    hospitalServiceObj.create_table()
+                    hospitalServiceObj.getAppointmentById()
                 elif choice == 2:
-                    hospitalServiceObj.insert_into()
+                    hospitalServiceObj.getAppointmentsForPatient()
                 elif choice == 3:
-                    hospitalServiceObj.update_table()
+                    hospitalServiceObj.getAppointmentsForDoctor()
                 elif choice == 4:
-                    hospitalServiceObj.delete_table()
+                    hospitalServiceObj.scheduleAppointment()
                 elif choice == 5:
-                    hospitalServiceObj.select_table()
+                    hospitalServiceObj.updateAppointment()
                 elif choice == 6:
+                    hospitalServiceObj.cancelAppointment()
+                elif choice == 7:
                     print("Exited successfully")
                     break
                 else:
