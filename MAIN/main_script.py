@@ -77,7 +77,7 @@ try:
                 elif choice == 4:
                     appointmentObj.delete_table()
                 elif choice == 5:
-                    (appointmentObj.select_table())
+                    appointmentObj.select_table()
                 elif choice == 6:
                     print("Exited successfully")
                     break
